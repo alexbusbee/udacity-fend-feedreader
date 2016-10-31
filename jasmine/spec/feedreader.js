@@ -25,6 +25,7 @@ $(function() {
             for (var i = 0; i < allFeeds.length; i) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
+                i++;
             }
         });
 
@@ -36,6 +37,7 @@ $(function() {
             for (var i = 0; i < allFeeds.length; i) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
+                i++;
             }
         });
     });
@@ -88,18 +90,22 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        var feedOne;
+        var feedOne,
+            feedTwo;
 
         beforeEach(function(done) {
             loadFeed(0, function() {
                 feedOne = ($('.feed').html());
             });
-            loadFeed(1, done);           
+
+            loadFeed(1, function() {
+                feedTwo = ($('.feed').html());
+                done();                  
+            });
         });
 
-        it('should change content', function(done) {
-            expect($('.feed').html()).not.toEqual(feedOne);
-            done();
-        });
+        it('should change content', function() {
+            expect(feedTwo).not.toEqual(feedOne);
+        });    
     });
 }());
