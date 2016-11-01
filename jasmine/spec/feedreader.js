@@ -96,11 +96,11 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 feedOne = ($('.feed').html());
-            });
 
-            loadFeed(1, function() {
-                feedTwo = ($('.feed').html());
+                loadFeed(1, function() {
+                    feedTwo = ($('.feed').html());
                 done();                  
+                });                
             });
         });
 
